@@ -5,23 +5,282 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>StudyAI</title>
     <style>
+      :root {
+        --bg: #f6f7fb;
+        --panel: #ffffff;
+        --ink: #17202a;
+        --muted: #647184;
+        --line: #dde3ea;
+        --blue: #2563eb;
+        --green: #15803d;
+        --orange: #d97706;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        display: grid;
-        min-height: 100vh;
         margin: 0;
-        place-items: center;
-        background: #f7f8f3;
-        color: #17202a;
+        background: var(--bg);
+        color: var(--ink);
         font-family: Arial, sans-serif;
       }
 
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 18px 28px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel);
+      }
+
+      .brand {
+        font-size: 1.35rem;
+        font-weight: 800;
+      }
+
+      nav {
+        display: flex;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        gap: 22px;
+        padding: 22px;
+      }
+
+      aside,
+      section,
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      aside {
+        min-height: calc(100vh - 105px);
+        padding: 18px;
+      }
+
+      .menu {
+        display: grid;
+        gap: 10px;
+      }
+
+      .menu button,
+      .action-grid button,
+      .primary {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .menu button:first-child,
+      .primary {
+        border-color: var(--blue);
+        background: var(--blue);
+        color: #fff;
+      }
+
+      .workspace {
+        display: grid;
+        gap: 22px;
+      }
+
+      section {
+        padding: 22px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
       h1 {
-        margin: 0;
-        font-size: clamp(4rem, 14vw, 10rem);
+        margin-bottom: 10px;
+        font-size: clamp(2rem, 5vw, 4.5rem);
+      }
+
+      h2 {
+        margin-bottom: 14px;
+        font-size: 1.25rem;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 160px;
+        resize: vertical;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px;
+        font: inherit;
+      }
+
+      .upload-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .action-grid,
+      .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .action-grid button {
+        padding: 14px;
+        text-align: left;
+      }
+
+      .card {
+        min-height: 150px;
+        padding: 18px;
+      }
+
+      .tag {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: var(--green);
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .progress {
+        height: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e8edf3;
+      }
+
+      .progress span {
+        display: block;
+        width: 35%;
+        height: 100%;
+        background: var(--orange);
+      }
+
+      @media (max-width: 900px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+
+        aside {
+          min-height: auto;
+        }
+
+        .action-grid,
+        .panel-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 560px) {
+        header,
+        nav,
+        .upload-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .action-grid,
+        .panel-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>StudyAI</h1>
+    <header>
+      <div class="brand">StudyAI</div>
+      <nav>
+        <span>Dashboard</span>
+        <span>New Study Set</span>
+        <span>Library</span>
+        <span>Progress</span>
+      </nav>
+    </header>
+
+    <main>
+      <aside>
+        <h2>Study modes</h2>
+        <div class="menu">
+          <button>Dashboard</button>
+          <button>Summary</button>
+          <button>Flashcards</button>
+          <button>Quiz</button>
+          <button>Weak Points</button>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <section>
+          <h1>Build a study set</h1>
+          <p>Paste notes or upload study material. The AI features will be connected later.</p>
+          <textarea placeholder="Paste study material here..."></textarea>
+          <div class="upload-row">
+            <button class="primary">Upload file</button>
+            <button class="primary">Generate study set</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>Future AI actions</h2>
+          <div class="action-grid">
+            <button>Generate Summary</button>
+            <button>Create Flashcards</button>
+            <button>Create Quiz</button>
+            <button>Review Weak Points</button>
+          </div>
+        </section>
+
+        <section>
+          <h2>Study workspace</h2>
+          <div class="panel-grid">
+            <div class="card">
+              <span class="tag">Summary</span>
+              <h3>Key idea preview</h3>
+              <p>Short summaries will appear here.</p>
+            </div>
+            <div class="card">
+              <span class="tag">Flashcards</span>
+              <h3>0 cards</h3>
+              <p>Generated recall cards will appear here.</p>
+            </div>
+            <div class="card">
+              <span class="tag">Quiz</span>
+              <h3>0 questions</h3>
+              <p>Practice questions will appear here.</p>
+            </div>
+            <div class="card">
+              <span class="tag">Mastery</span>
+              <h3>35%</h3>
+              <div class="progress"><span></span></div>
+              <p>Progress tracking will appear here.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
   </body>
 </html>
